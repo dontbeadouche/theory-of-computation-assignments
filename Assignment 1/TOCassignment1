@@ -1,0 +1,25 @@
+#!/bin/bash
+
+read -p "Enter filename/path : " file
+read -p "Enter M (lower limit) : " m
+read -p "Enter N (upper limit) : " n
+echo ""
+
+echo "To print all the lines with length between $m and $n characters ..."
+echo ""
+
+echo "Using grep : "
+echo ""
+grep -E "^.{$m,$n}$" "$file"
+echo ""
+
+echo "Using sed : "
+echo ""
+sed -nr "/^.{$m,$n}$/p" "$file"
+echo ""
+
+echo "Using awk : "
+echo ""
+awk -v mm="$((m-1))" -v nn="$((n+1))" 'length($0)>mm && length($0)<nn' "$file"
+echo ""
+
